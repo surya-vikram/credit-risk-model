@@ -161,3 +161,18 @@ _A bank writes-off loans once the DPD crosses 180 to improve NPA. Due to this lo
 | Age_Oldest_TL          | Age of oldest opened account                            |
 | Age_Newest_TL          | Age of newest opened account                            |
 
+***
+
+### Multiclass Classification
+- target column - Approved_Flag 
+- labels - P1, P2, P3, P4 
+- values signify different priority levels for the customer
+- P1 being the best customer to provide loan
+- P4 being the worst customer to provide loan
+
+***
+#### Facts
+- _Bank wishes to lend money to people who don't need money_
+- _Credit Card Utilization & bank rewards are directly proportional_
+- _CC Utilization & Credit Score are inversely proportional_
+    
