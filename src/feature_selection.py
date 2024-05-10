@@ -18,7 +18,7 @@ def process_categorical_columns(df):
     categorical_columns = check_categorical_columns(df)
     for col in categorical_columns:
         p_value = chi_square_test(df, col)
-        if p_value <= 0.05:
+        if p_value > 0.05:
             df = df.drop(col, axis=1)
     return df
 
@@ -31,12 +31,11 @@ def calculate_vif(df):
     columns = check_numeric_columns(df)
     vif_data = df[columns]
     columns_to_be_removed = []
-    column_index = 0
-    for i in range(len(columns)):
-        vif_value = variance_inflation_factor(vif_data.values, column_index)
+    for column in columns:
+        vif_value = variance_inflation_factor(
+            vif_data.values, vif_data.columns.get_loc(column))
         if vif_value > 6:
-            columns_to_be_removed.append(columns[i])
-            vif_data = vif_data.drop(columns[i], axis=1)
+            columns_to_be_removed.append(column)
     return df.drop(columns=columns_to_be_removed)
 
 
@@ -60,6 +59,6 @@ def process_numerical_columns(df):
 def process_dataframe(df):
     df = process_categorical_columns(df)
     df = process_numerical_columns(df)
-    with open('feature_names.json', 'w') as f:
+    with open('column_names.json', 'w') as f:
         json.dump(df.columns.tolist(), f)
     return df
